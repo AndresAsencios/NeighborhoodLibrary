@@ -29,25 +29,55 @@ public class NeighborhoodLibrary {
                 new Book(19, "9780451524935", "1984"),
                 new Book(20, "9780307387899", "The Road")
         };
-
-        System.out.println("Welcome to Neighborhood Library!");
-        System.out.println("-------------------------------");
-        System.out.println("1. Show Available Books");
-        System.out.println("2. Show Check Out Books");
-        System.out.println("3. Check Out a Book");
-        System.out.println("4. Check In a Book");
-        System.out.println("5. Exit ");
-        System.out.println("-------------------------------");
-
+        // Display options
+        int choice = 0;
         books[0].checkOut("Alex");
 
+        while (choice !=3) {
+
+            System.out.println("Welcome to Neighborhood Library!");
+            System.out.println("-------------------------------");
+            System.out.println("1. Show Available Books");
+            System.out.println("2. Show Checked Out Books");
+            System.out.println("3. Exit");
+            System.out.println("-------------------------------");
+
+            System.out.print("Enter your choice: ");
+            choice = Integer.parseInt(read.nextLine());
+
+            switch (choice) {
+                case 1:
+                    showAvailableBooks(books);
+                    break;
+
+                case 2:
+                    showCheckedOutBooks(books);
+                    break;
+
+                case 3:
+                    System.out.println("Farewell!");
+                    break;
+
+                default:
+                    System.out.println("Invalid option. Try Again.");
+                    break;
+            }
+
+        }
+    }
+    public static void showAvailableBooks(Book[] books) {
         for (Book currentBook : books) {
             if (!currentBook.isCheckedOut()) {
-                System.out.printf("%d. %s%n",
+                System.out.printf("%d. %s | ISBN: %s%n",
                         currentBook.getBookId(),
-                        currentBook.getBookTitle());
+                        currentBook.getBookTitle(),
+                        currentBook.getIsbn());
             }
         }
+
+    }
+    public static void showCheckedOutBooks(Book[] books) {
+
         System.out.println();
         System.out.println("Checked Out Books:");
         System.out.println("---------------------------");
@@ -60,6 +90,7 @@ public class NeighborhoodLibrary {
                         currentBook.getCheckOutTo());
             }
         }
-
     }
 }
+
+
