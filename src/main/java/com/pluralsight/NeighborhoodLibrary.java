@@ -7,7 +7,7 @@ public class NeighborhoodLibrary {
         Scanner read = new Scanner(System.in);
 
         Book[] books = {
-                // YOUR FAVORITES
+                // Favorite Books
                 new Book(1, "9780679720201", "The Stranger"),
                 new Book(2, "9780140186390", "East of Eden"),
                 new Book(3, "9780140187397", "The Red Pony"),
