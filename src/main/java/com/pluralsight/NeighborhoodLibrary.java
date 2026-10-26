@@ -17,7 +17,7 @@ public class NeighborhoodLibrary {
                 new Book(7, "9780735211292", "Atomic Habits"),
                 new Book(8, "9780593716625", "The Art of Spending Money"),
                 new Book(9, "9781421590561", "Tomie"),
-                new Book(10, "9780553213690", "The Metamorphosis"),
+                new Book(10, "9780553213690", "Metamorphosis"),
                 new Book(11, "9781524759780", "Recursion"),
                 new Book(12, "9780060850524", "Brave New World"),
                 new Book(13, "9780679732761", "The Trial"),
@@ -158,7 +158,6 @@ public class NeighborhoodLibrary {
             }
         }
         System.out.println("Book ID not found.");
-
     }
 }
 
