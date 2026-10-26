@@ -31,10 +31,9 @@ public class NeighborhoodLibrary {
         };
         // Display options
         int choice = 0;
-        books[0].checkOut("Alex");
 
-        while (choice !=3) {
-
+        while (choice != 3) {
+            System.out.println();
             System.out.println("Welcome to Neighborhood Library!");
             System.out.println("-------------------------------");
             System.out.println("1. Show Available Books");
@@ -47,11 +46,11 @@ public class NeighborhoodLibrary {
 
             switch (choice) {
                 case 1:
-                    showAvailableBooks(books);
+                    showAvailableBooks(books, read);
                     break;
 
                 case 2:
-                    showCheckedOutBooks(books);
+                    showCheckedOutBooks(books, read);
                     break;
 
                 case 3:
@@ -65,18 +64,64 @@ public class NeighborhoodLibrary {
 
         }
     }
-    public static void showAvailableBooks(Book[] books) {
+
+    public static void showAvailableBooks(Book[] books, Scanner read) {
         for (Book currentBook : books) {
             if (!currentBook.isCheckedOut()) {
                 System.out.printf("%d. %s | ISBN: %s%n",
                         currentBook.getBookId(),
                         currentBook.getBookTitle(),
                         currentBook.getIsbn());
+
             }
         }
 
+        System.out.println();
+        System.out.print("Enter a Book ID to check out (0 to return): ");
+        int selectedBookId = Integer.parseInt(read.nextLine());
+
+        if (selectedBookId == 0) {
+            return;
+        }
+        for (Book currentBook : books) {
+            if (currentBook.getBookId() == selectedBookId) {
+
+                if (currentBook.isCheckedOut()) {
+                    System.out.println("Sorry, this book is checked out.");
+                    return;
+                }
+                System.out.println("You selected " + currentBook.getBookTitle());
+
+                String borrowerName = "";
+
+                while (borrowerName.isBlank()) {
+                    System.out.print("Enter your name: ");
+                    borrowerName = read.nextLine();
+
+
+                    if (borrowerName.isBlank()) {
+                        System.out.println("Invalid name. Please Enter your name.");
+                        return;
+                    }
+                }
+
+                currentBook.checkOut(borrowerName);
+
+                if(currentBook.isCheckedOut()
+                    && borrowerName.equals(currentBook.getCheckOutTo())) {
+
+                    System.out.println("Success! You checked out: " + currentBook.getBookTitle());
+                } else {
+                    System.out.println("Check failed. Please try again.");
+                }
+                return;
+            }
+        }
+        System.out.println("Book ID not found.");
+
     }
-    public static void showCheckedOutBooks(Book[] books) {
+
+    public static void showCheckedOutBooks(Book[] books, Scanner read) {
 
         System.out.println();
         System.out.println("Checked Out Books:");
@@ -84,13 +129,38 @@ public class NeighborhoodLibrary {
 
         for (Book currentBook : books) {
             if (currentBook.isCheckedOut()) {
-                System.out.printf("%d. %s | Borrowed by: %s%n",
+                System.out.printf("%d. ISBN: %s | %s | Borrowed by: %s%n",
                         currentBook.getBookId(),
+                        currentBook.getIsbn(),
                         currentBook.getBookTitle(),
                         currentBook.getCheckOutTo());
             }
         }
+        System.out.println();
+        System.out.print("Enter book ID to check in (0 to return): ");
+        int selectedBookId = Integer.parseInt(read.nextLine());
+
+        if (selectedBookId == 0) {
+            return;
+        }
+
+        // Check in loop
+        for (Book currentBook : books) {
+            if (currentBook.getBookId() == selectedBookId) {
+
+                if (currentBook.isCheckedOut()) {
+                    currentBook.checkIn();
+                    System.out.println("Successfully returned!: " + currentBook.getBookTitle());
+                    return;
+                }
+                System.out.println("This book is not checked out.");
+                return;
+            }
+        }
+        System.out.println("Book ID not found.");
+
     }
 }
+
 
 

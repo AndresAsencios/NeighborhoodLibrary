@@ -13,12 +13,14 @@ public class Book {
         this.isbn = isbn;
         this.bookTitle = bookTitle;
         this.isCheckedOut = false;
-        this.checkOutTo = null;
+        this.checkOutTo = "";
     }
 
       public void checkOut(String name) {
-        this.isCheckedOut = true;
-        this.checkOutTo = name;
+        if(!this.isCheckedOut && name !=null && !name.isBlank()) {
+            this.isCheckedOut = true;
+            this.checkOutTo = name;
+        }
 
       }
 
