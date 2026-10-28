@@ -40,10 +40,12 @@ public class NeighborhoodLibrary {
             System.out.println("2. Show Checked Out Books");
             System.out.println("3. Exit");
             System.out.println("-------------------------------");
-
+                // Integer.parseInt for # input (to parse from String to #)
             System.out.print("Enter your choice: ");
             choice = Integer.parseInt(read.nextLine());
 
+
+            //Switch case (Show Books, Checkout Books, Exit)
             switch (choice) {
                 case 1:
                     showAvailableBooks(books, read);
